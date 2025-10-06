@@ -113,6 +113,8 @@ export function createBot(env: Env) {
 export function getTelegramWebhookHandler(env: Env) {
   const bot = createBot(env);
   
-  // Return webhook callback configured for Cloudflare Workers
-  return webhookCallback(bot, 'cloudflare-mod');
+  // Return webhook callback configured for Cloudflare Workers with secret token validation
+  return webhookCallback(bot, 'cloudflare-mod', {
+    secretToken: env.TELEGRAM_WEBHOOK_SECRET
+  });
 }
