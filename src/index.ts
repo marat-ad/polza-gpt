@@ -8,6 +8,7 @@
 
 import type { Env } from './config/env';
 import { getExpertData, SheetsUnavailableError } from './services/sheets';
+import { getTelegramWebhookHandler } from './services/telegram';
 
 export default {
   async fetch(
@@ -23,6 +24,17 @@ export default {
         status: 200,
         headers: { 'Content-Type': 'text/plain' }
       });
+    }
+
+    // Telegram webhook endpoint
+    if (url.pathname === '/webhook' && request.method === 'POST') {
+      try {
+        const webhookHandler = getTelegramWebhookHandler(env);
+        return await webhookHandler(request);
+      } catch (error) {
+        console.error('Webhook error:', error);
+        return new Response('Webhook error', { status: 500 });
+      }
     }
 
     // Google Sheets data endpoint

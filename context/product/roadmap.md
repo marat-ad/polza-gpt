@@ -8,9 +8,9 @@ _This roadmap outlines our strategic direction based on customer needs and busin
 
 _The highest priority features that form the core foundation of the product._
 
-- [ ] **Data Foundation**
-  - [ ] **Google Sheets Integration:** Connect to the Google Sheets database containing ~400 expert records (Name, Expertise, Contacts columns) and implement data fetching functionality.
-  - [ ] **Data Parsing & Validation:** Ensure expert data is properly parsed and validated for use in search and matching operations.
+- [x] **Data Foundation**
+  - [x] **Google Sheets Integration:** Connect to the Google Sheets database containing ~400 expert records (Name, Expertise, Contacts columns) and implement data fetching functionality.
+  - [x] **Data Parsing & Validation:** Ensure expert data is properly parsed and validated for use in search and matching operations.
 
 - [ ] **Telegram Bot Core**
   - [ ] **Bot Registration & Setup:** Register the bot with Telegram and configure it to respond to @mentions in group chats.

@@ -25,4 +25,30 @@ export interface Env {
    * Used to store cached Google Sheets data with 1-hour TTL
    */
   EXPERTS_KV: KVNamespace;
+
+  /**
+   * Telegram Bot API token
+   * This is the token obtained from @BotFather when creating the bot
+   */
+  TELEGRAM_BOT_TOKEN: string;
+
+  /**
+   * Telegram webhook secret
+   * Secret key used for webhook validation to ensure requests come from Telegram
+   */
+  TELEGRAM_WEBHOOK_SECRET: string;
+
+  /**
+   * Allowed group chat IDs
+   * Comma-separated list of Telegram group chat IDs where the bot is authorized to respond
+   * Example: "-1001234567890,-1009876543210"
+   */
+  ALLOWED_GROUP_CHAT_IDS: string;
+
+  /**
+   * Allowed user IDs
+   * Comma-separated list of Telegram user IDs who are whitelisted for direct messages
+   * Example: "123456789,987654321"
+   */
+  ALLOWED_USER_IDS: string;
 }
