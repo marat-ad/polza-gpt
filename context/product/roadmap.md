@@ -1,4 +1,4 @@
-# Product Roadmap: PolzaBot
+# Product Roadmap: PolzaGPT
 
 _This roadmap outlines our strategic direction based on customer needs and business goals. It focuses on the "what" and "why," not the technical "how."_
 

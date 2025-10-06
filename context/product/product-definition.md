@@ -1,4 +1,4 @@
-# Product Definition: PolzaBot
+# Product Definition: PolzaGPT
 
 - **Version:** 1.0
 - **Status:** Proposed

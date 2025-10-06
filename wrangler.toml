@@ -1,0 +1,15 @@
+name = "polza-gpt"
+main = "src/index.ts"
+compatibility_date = "2024-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+[[env.production.kv_namespaces]]
+binding = "EXPERTS_KV"
+id = "f71358bd863b43ce9485436ce1d62cf6"
+
+[env.development]
+[[env.development.kv_namespaces]]
+binding = "EXPERTS_KV"
+id = "fe858cd19d3645d0a946cea2be073fc1"
+preview_id = "28700806f1c546eaac53505eafd36406"

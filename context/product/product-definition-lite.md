@@ -1,4 +1,4 @@
-# PolzaBot — Product Definition (Summary)
+# PolzaGPT — Product Definition (Summary)
 
 ## Vision
 

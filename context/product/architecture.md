@@ -1,4 +1,4 @@
-# System Architecture Overview: PolzaBot
+# System Architecture Overview: PolzaGPT
 
 ---
 
