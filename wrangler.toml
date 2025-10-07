@@ -3,6 +3,9 @@ main = "src/index.ts"
 compatibility_date = "2024-10-01"
 compatibility_flags = ["nodejs_compat"]
 
+[observability.logs]
+enabled = true
+
 [env.production]
 name = "polza-gpt"
 [[env.production.kv_namespaces]]
