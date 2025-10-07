@@ -39,24 +39,36 @@ export async function findExpertsWithAI(query: string, experts: SheetsData, env:
     // Initialize Google Generative AI client with API key
     const genAI = new GoogleGenerativeAI(env.GOOGLE_GEMINI_API_KEY);
     
-    // Get the Gemini model (gemini-2.0-flash)
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-    
     // Create comprehensive expert matching prompt with raw data
     const prompt = createExpertMatchingPrompt(query, experts.values);
     
-    console.log('Sending request to Gemini API for expert matching');
-    
-    // Generate content using the Gemini model
-    const result = await model.generateContent(prompt);
-    
-    // Extract the generated text from the response
-    const response = await result.response;
-    const generatedText = response.text();
-    
-    console.log('Successfully received expert matching response from Gemini API');
-    
-    return generatedText;
+    // Try with gemini-2.0-flash first
+    try {
+      console.log('Sending request to Gemini API (gemini-2.0-flash) for expert matching');
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const generatedText = response.text();
+      console.log('Successfully received expert matching response from Gemini API (gemini-2.0-flash)');
+      return generatedText;
+    } catch (primaryError: any) {
+      // Check if the error is due to overload
+      const errorMessage = primaryError?.message || String(primaryError);
+      if (errorMessage.includes('overloaded') || errorMessage.includes('503')) {
+        console.log('gemini-2.0-flash is overloaded, falling back to gemini-1.5-flash');
+        
+        // Fallback to gemini-1.5-flash
+        const fallbackModel = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const result = await fallbackModel.generateContent(prompt);
+        const response = await result.response;
+        const generatedText = response.text();
+        console.log('Successfully received expert matching response from Gemini API (gemini-1.5-flash fallback)');
+        return generatedText;
+      }
+      
+      // If it's not an overload error, throw it to be caught by the outer catch
+      throw primaryError;
+    }
   } catch (error) {
     // Log technical error details for debugging
     console.error('Gemini API error:', error);
