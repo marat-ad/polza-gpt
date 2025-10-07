@@ -23,14 +23,14 @@ _The highest priority features that form the core foundation of the product._
 
 _Once the foundational features are complete, we will move on to these high-value additions._
 
-- [ ] **AI-Powered Semantic Search**
-  - [ ] **Google Gemini API Integration:** Connect to Google Gemini API (free tier) for natural language processing of user queries.
-  - [ ] **Semantic Matching Engine:** Implement AI-powered matching that understands intent and context beyond simple keyword matching.
-  - [ ] **Match Ranking Algorithm:** Create logic to rank experts by relevance and return the top 3-5 matches for each query.
+- [x] **AI-Powered Semantic Search**
+  - [x] **Google Gemini API Integration:** Connect to Google Gemini API (free tier) for natural language processing of user queries.
+  - [x] **Semantic Matching Engine:** Implement AI-powered matching that understands intent and context beyond simple keyword matching.
+  - [x] **Match Ranking Algorithm:** Create logic to rank experts by relevance and return the top 3-5 matches for each query.
 
-- [ ] **Enhanced User Experience**
-  - [ ] **Match Explanations:** Generate and display brief explanations for why each expert was matched to the user's query.
-  - [ ] **Query Understanding:** Handle various query formats and rephrasings to improve search flexibility and accuracy.
+- [x] **Enhanced User Experience**
+  - [x] **Match Explanations:** Generate and display brief explanations for why each expert was matched to the user's query.
+  - [x] **Query Understanding:** Handle various query formats and rephrasings to improve search flexibility and accuracy.
 
 ---
 
@@ -38,11 +38,11 @@ _Once the foundational features are complete, we will move on to these high-valu
 
 _Features planned for future consideration. Their priority and scope may be refined based on user feedback from earlier phases._
 
-- [ ] **Infrastructure & Performance**
-  - [ ] **Cloudflare Workers Deployment:** Deploy the bot to Cloudflare Workers free tier for zero-cost hosting.
+- [x] **Infrastructure & Performance**
+  - [x] **Cloudflare Workers Deployment:** Deploy the bot to Cloudflare Workers free tier for zero-cost hosting.
   - [ ] **Cold Start Optimization:** Improve response times where possible while maintaining free tier constraints.
-  - [ ] **Error Handling & Resilience:** Add robust error handling and graceful degradation for API failures.
+  - [x] **Error Handling & Resilience:** Add robust error handling and graceful degradation for API failures.
 
-- [ ] **Data Management**
-  - [ ] **Automatic Sheet Sync:** Implement periodic syncing or caching of the expert database to improve performance.
+- [x] **Data Management**
+  - [x] **Automatic Sheet Sync:** Implement periodic syncing or caching of the expert database to improve performance.
   - [ ] **Data Quality Monitoring:** Add basic checks to ensure the Google Sheet data remains valid and accessible.
