@@ -51,4 +51,12 @@ export interface Env {
    * Example: "123456789,987654321"
    */
   ALLOWED_USER_IDS: string;
+
+  /**
+   * Google Gemini API key
+   * API key for Google's Gemini AI model (gemini-2.0-flash) for natural language processing
+   * This enables the bot to understand user queries in natural language
+   * Obtain from Google AI Studio or Google Cloud Console
+   */
+  GOOGLE_GEMINI_API_KEY: string;
 }

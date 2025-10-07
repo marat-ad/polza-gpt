@@ -8,6 +8,8 @@
 
 import { Bot, webhookCallback } from 'grammy';
 import type { Env } from '../config/env';
+import { getExpertData } from './sheets';
+import { findExpertsWithAI } from './gemini';
 
 /**
  * Creates and configures a Telegram bot instance
@@ -80,11 +82,24 @@ export function createBot(env: Env) {
         return;
       }
 
-      // Respond with placeholder message to authorized users
-      await ctx.reply(
-        '✅ Бот активен. Функция поиска экспертов скоро будет доступна!',
-        { reply_to_message_id: ctx.message.message_id }
-      );
+      // Process query with AI integration
+      try {
+        // Fetch expert data from Google Sheets (with KV caching)
+        const expertData = await getExpertData(env);
+        
+        // Use Gemini AI to process the query and find relevant experts
+        const responseMessage = await findExpertsWithAI(query, expertData, env);
+        
+        // Send the AI-generated response to the user
+        await ctx.reply(responseMessage, { reply_to_message_id: ctx.message.message_id });
+      } catch (error) {
+        console.error('Error processing query with AI:', error);
+        // Send user-friendly error message in Russian
+        await ctx.reply(
+          'Не удалось обработать ваш запрос. Пожалуйста, попробуйте позже.',
+          { reply_to_message_id: ctx.message.message_id }
+        );
+      }
     } catch (error) {
       console.error('Error sending message reply:', error);
       // Don't throw - let the webhook handler catch any issues

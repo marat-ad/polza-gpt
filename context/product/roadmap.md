@@ -12,10 +12,10 @@ _The highest priority features that form the core foundation of the product._
   - [x] **Google Sheets Integration:** Connect to the Google Sheets database containing ~400 expert records (Name, Expertise, Contacts columns) and implement data fetching functionality.
   - [x] **Data Parsing & Validation:** Ensure expert data is properly parsed and validated for use in search and matching operations.
 
-- [ ] **Telegram Bot Core**
-  - [ ] **Bot Registration & Setup:** Register the bot with Telegram and configure it to respond to @mentions in group chats.
-  - [ ] **Message Processing:** Implement basic message handling to capture user queries when the bot is mentioned in group conversations.
-  - [ ] **Response Formatting:** Create a clear, readable format for displaying expert results with contact information in Telegram messages.
+- [x] **Telegram Bot Core**
+  - [x] **Bot Registration & Setup:** Register the bot with Telegram and configure it to respond to @mentions in group chats.
+  - [x] **Message Processing:** Implement basic message handling to capture user queries when the bot is mentioned in group conversations.
+  - [x] **Response Formatting:** Create a clear, readable format for displaying expert results with contact information in Telegram messages.
 
 ---
 
