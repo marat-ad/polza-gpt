@@ -90,8 +90,11 @@ export function createBot(env: Env) {
         // Use Gemini AI to process the query and find relevant experts
         const responseMessage = await findExpertsWithAI(query, expertData, env);
         
-        // Send the AI-generated response to the user
-        await ctx.reply(responseMessage, { reply_to_message_id: ctx.message.message_id });
+        // Send the AI-generated response to the user with Markdown parsing
+        await ctx.reply(responseMessage, { 
+          reply_to_message_id: ctx.message.message_id,
+          parse_mode: 'Markdown'
+        });
       } catch (error) {
         console.error('Error processing query with AI:', error);
         // Send user-friendly error message in Russian
