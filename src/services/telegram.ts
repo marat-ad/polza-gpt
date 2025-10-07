@@ -90,10 +90,10 @@ export function createBot(env: Env) {
         // Use Gemini AI to process the query and find relevant experts
         const responseMessage = await findExpertsWithAI(query, expertData, env);
         
-        // Send the AI-generated response to the user with MarkdownV2 parsing
+        // Send the AI-generated response to the user with HTML parsing
         await ctx.reply(responseMessage, { 
           reply_to_message_id: ctx.message.message_id,
-          parse_mode: 'MarkdownV2'
+          parse_mode: 'HTML'
         });
       } catch (error) {
         console.error('Error processing query with AI:', error);
