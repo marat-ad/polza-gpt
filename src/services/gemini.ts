@@ -1,7 +1,8 @@
 /**
  * Google Gemini API service for PolzaGPT
  * 
- * This service handles natural language processing using Google's Gemini AI model (gemini-2.0-flash).
+ * This service handles natural language processing using Google's Gemini AI models.
+ * Primary: gemini-2.5-flash-preview, with fallbacks to gemini-2.0-flash and gemini-2.0-flash-lite.
  * Enables the bot to understand user queries in natural language and find matching experts.
  * Implements comprehensive expert matching with intelligent prompt engineering and data parsing.
  */
@@ -42,28 +43,46 @@ export async function findExpertsWithAI(query: string, experts: SheetsData, env:
     // Create comprehensive expert matching prompt with raw data
     const prompt = createExpertMatchingPrompt(query, experts.values);
     
-    // Try with gemini-2.0-flash first
+    // Try with gemini-2.5-flash-preview first
     try {
-      console.log('Sending request to Gemini API (gemini-2.0-flash) for expert matching');
-      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+      console.log('Sending request to Gemini API (gemini-2.5-flash-preview) for expert matching');
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview' });
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const generatedText = response.text();
-      console.log('Successfully received expert matching response from Gemini API (gemini-2.0-flash)');
+      console.log('Successfully received expert matching response from Gemini API (gemini-2.5-flash-preview)');
       return generatedText;
     } catch (primaryError: any) {
       // Check if the error is due to overload
       const errorMessage = primaryError?.message || String(primaryError);
       if (errorMessage.includes('overloaded') || errorMessage.includes('503')) {
-        console.log('gemini-2.0-flash is overloaded, falling back to gemini-1.5-flash');
+        console.log('gemini-2.5-flash-preview is overloaded, falling back to gemini-2.0-flash');
         
-        // Fallback to gemini-1.5-flash
-        const fallbackModel = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-        const result = await fallbackModel.generateContent(prompt);
-        const response = await result.response;
-        const generatedText = response.text();
-        console.log('Successfully received expert matching response from Gemini API (gemini-1.5-flash fallback)');
-        return generatedText;
+        // First fallback: gemini-2.0-flash
+        try {
+          const fallbackModel = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+          const result = await fallbackModel.generateContent(prompt);
+          const response = await result.response;
+          const generatedText = response.text();
+          console.log('Successfully received expert matching response from Gemini API (gemini-2.0-flash fallback)');
+          return generatedText;
+        } catch (secondaryError: any) {
+          const secondaryErrorMessage = secondaryError?.message || String(secondaryError);
+          if (secondaryErrorMessage.includes('overloaded') || secondaryErrorMessage.includes('503')) {
+            console.log('gemini-2.0-flash is also overloaded, falling back to gemini-2.0-flash-lite');
+            
+            // Second fallback: gemini-2.0-flash-lite
+            const secondFallbackModel = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+            const result = await secondFallbackModel.generateContent(prompt);
+            const response = await result.response;
+            const generatedText = response.text();
+            console.log('Successfully received expert matching response from Gemini API (gemini-2.0-flash-lite fallback)');
+            return generatedText;
+          }
+          
+          // If it's not an overload error, throw it
+          throw secondaryError;
+        }
       }
       
       // If it's not an overload error, throw it to be caught by the outer catch
